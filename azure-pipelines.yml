@@ -66,6 +66,11 @@ jobs:
       testResultsFiles: '**/test-*.xml'
       testRunTitle: 'Publish test results for Python $(python.version)'
 
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+
 #  - script: |
 #      python -m pip install --upgrade pip
 #      pip install -r requirements.txt
