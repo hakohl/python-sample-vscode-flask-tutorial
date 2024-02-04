@@ -29,12 +29,12 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - run: python hello_world.py
     - run: |
-        print('Hello world 1')
-        print('Hello world 2')
+        print("Hello world 1")
+        print("Hello world 2")
     - name: Run Python Script
       uses: jannekem/run-python-script-action@v1.7
       with:
-        script: hello_worl.py   
+        script: hello_world.py   
           
     - name: Lint with flake8
       run: |
