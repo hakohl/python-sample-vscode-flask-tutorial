@@ -15,7 +15,8 @@ on:
   release:
     types: [published]
 
-jobs:  build:
+jobs:  
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
