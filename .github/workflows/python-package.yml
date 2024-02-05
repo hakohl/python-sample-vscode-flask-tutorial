@@ -27,13 +27,13 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - run: python hello_world.py
+    - run: python hello_world.py > hello_world.out
     - name: Run Python Script
       uses: jannekem/run-python-script-action@v1.7
       with:
         script: |
-          print("Hello world 1")
-          print("Hello world 2")
+          print("Hello world 1") >> hello_world.out
+          print("Hello world 2") >> hello_world.out
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -43,9 +43,9 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Upload pytest test results
+    - name: Upload hello world results
       uses: actions/upload-artifact@v4
       with:
-        name: pytest-results-${{ matrix.python-version }}
-        path: junit/test-results-${{ matrix.python-version }}.xml
+        name: hello-world-result
+        path: hello_world.out
 
