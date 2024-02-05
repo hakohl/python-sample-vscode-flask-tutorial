@@ -16,21 +16,60 @@ on:
     types: [published]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-versi
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip inst
+    - run: python hello_world.py > ./hello_world.
+    - name: Run Python Script
+      uses: jannekem/run-python-script-action@v1.
+      with:
+        script: |
+          print("Hello world 1")
+          print("Hello world 2")
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python synt
+        flake8 . --count --select=E9,F63,F7,F82 -
+        # exit-zero treats all errors as warnings
+        flake8 . --count --exit-zero --max-comple
+    - name: Test with pytest
+      run: |
+        pytest
+    - name: Upload hello world results
+      uses: actions/upload-artifact@v4
+      with:
+        name: hello-world-result-${{ matrix.pytho
+        path: hello_world.out
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install build
-      - name: Build package
-        run: python -m build
+      #- name: Build package
+      #  run: python -m build
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
         with:
+      #    packages-dir: ./
           password: ${{ secrets.PYPI_API_TOKEN }}
