@@ -81,11 +81,12 @@ jobs:
   - task: UniversalPackages@0
     displayName: Publish a Universal Package
     inputs:
-      command: publish
+      command: 'publish'
       publishDirectory: '$(Build.ArtifactStagingDirectory)'
-      vstsFeedPublish: 'Fabrikam/fabrikam-feed'
+      feedsToUsePublish: 'internal'
+      vstsFeedPublish: '82973bed-f04e-4356-bf49-3532210777ba/e524834d-9071-4272-8e2b-030fd20df1cc'
       vstsFeedPackagePublish: 'fabrikam-study-package'
-      versionOption: major
+      versionOption: 'major'
       packagePublishDescription: 'package for studying Publish a Universal Package'
 
 #  - script: |
