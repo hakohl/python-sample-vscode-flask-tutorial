@@ -75,7 +75,7 @@ jobs:
     inputs:
       Contents: |
         hello_world.py
-        hello_app/views.py
+        hello_app/**
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: UniversalPackages@0
