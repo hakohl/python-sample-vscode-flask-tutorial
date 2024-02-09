@@ -12,10 +12,10 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      Python38:
-        python.version: '3.8'
-      Python39:
-        python.version: '3.9'
+#      Python38:
+#        python.version: '3.8'
+#      Python39:
+#        python.version: '3.9'
       Python310:
         python.version: '3.10'
 
@@ -75,7 +75,7 @@ jobs:
     inputs:
       Contents: |
         hello_world.py
-        hello_app\**
+        hello_app\views.py
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: UniversalPackages@0
@@ -86,7 +86,7 @@ jobs:
       feedsToUsePublish: 'internal'
       vstsFeedPublish: '82973bed-f04e-4356-bf49-3532210777ba/e524834d-9071-4272-8e2b-030fd20df1cc'
       vstsFeedPackagePublish: 'fabrikam-study-package'
-      versionOption: 'major'
+      versionOption: 'minor'
       packagePublishDescription: 'package for studying Publish a Universal Package'
 
 #  - script: |
