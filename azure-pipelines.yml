@@ -65,11 +65,11 @@ jobs:
 #    inputs:
 #      testResultsFiles: '**/test-*.xml'
 #      testRunTitle: 'Publish test results for Python $(python.version)'
-#
-#  - task: PublishCodeCoverageResults@1
-#    inputs:
-#      codeCoverageTool: Cobertura
-#      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
 
   - task: CopyFiles@2
     inputs:
