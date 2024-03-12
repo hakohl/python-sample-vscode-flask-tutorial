@@ -12,10 +12,10 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      Python38:
-        python.version: '3.8'
-      Python39:
-        python.version: '3.9'
+#      Python38:
+#        python.version: '3.8'
+#      Python39:
+#        python.version: '3.9'
       Python310:
         python.version: '3.10'
 
@@ -70,6 +70,24 @@ jobs:
 #    inputs:
 #      codeCoverageTool: Cobertura
 #      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+
+  - task: CopyFiles@2
+    inputs:
+      Contents: |
+        hello_world.py
+        hello_app/**
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: UniversalPackages@0
+    displayName: Publish a Universal Package
+    inputs:
+      command: 'publish'
+      publishDirectory: '$(Build.ArtifactStagingDirectory)'
+      feedsToUsePublish: 'internal'
+      vstsFeedPublish: '82973bed-f04e-4356-bf49-3532210777ba/e524834d-9071-4272-8e2b-030fd20df1cc'
+      vstsFeedPackagePublish: 'fabrikam-study-package'
+      versionOption: 'minor'
+      packagePublishDescription: 'package for studying Publish a Universal Package'
 
 #  - script: |
 #      python -m pip install --upgrade pip
